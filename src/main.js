@@ -15,7 +15,7 @@ let allPets = [];
 
 async function loadPets() {
   try {
-    const response = await fetch('src/data/mascotas.json');
+    const response = await fetch('/data/mascotas.json');
     const pets = await response.json();
     allPets = pets;
     renderGallery(pets);
