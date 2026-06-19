@@ -1,60 +1,97 @@
-import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.js'
+// =====================
+// HAMBURGER MENU
+// =====================
+const menuBtn = document.getElementById('menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
 
-document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+menuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('hidden');
+});
 
-<div class="ticks"></div>
+// =====================
+// PET GALLERY
+// =====================
+let allPets = [];
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+async function loadPets() {
+  try {
+    const response = await fetch('src/data/mascotas.json');
+    const pets = await response.json();
+    allPets = pets;
+    renderGallery(pets);
+  } catch (error) {
+    console.error('Error loading pets:', error);
+  }
+}
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+function renderGallery(pets) {
+  const container = document.getElementById('galeria-contenedor');
+  container.innerHTML = '';
 
-setupCounter(document.querySelector('#counter'))
+  if (pets.length === 0) {
+    container.innerHTML = `
+      <p class="text-center text-gray-500 col-span-3 py-8">
+        No pets found for this filter.
+      </p>`;
+    return;
+  }
+
+  pets.forEach(pet => {
+    const genderIcon = pet.sexo === 'macho' ? '♂️' : '♀️';
+    const unitRaw = (pet.unidad || '').toLowerCase();
+    const ageUnit = (unitRaw.includes('year') || unitRaw.includes('año'))
+      ? (pet.edad === 1 ? 'year' : 'years')
+      : (pet.edad === 1 ? 'month' : 'months');
+    const card = `
+      <div class="bg-green-100 rounded-xl overflow-hidden shadow-lg transition transform hover:scale-105">
+        <img src="${pet.imagen}" alt="${pet.nombre}"
+          class="w-full h-56 object-cover"
+          onerror="this.src='https://placehold.co/600x400/86efac/166534?text=${pet.nombre}'">
+        <div class="p-5">
+          <div class="flex justify-between items-center mb-1">
+            <h3 class="text-xl font-bold text-green-800">${pet.nombre} ${genderIcon}</h3>
+            <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full capitalize">${pet.tipo === 'perro' ? 'Dog' : 'Cat'}</span>
+          </div>
+          <p class="text-sm text-gray-500 mb-1">${pet.edad} ${ageUnit}</p>
+          <p class="text-gray-600 text-sm">${pet.personalidad}</p>
+        </div>
+      </div>
+    `;
+    container.innerHTML += card;
+  });
+}
+
+// =====================
+// FILTER BY TYPE
+// =====================
+function filterPets(type) {
+  // Update active button styles
+  document.querySelectorAll('.filtro-btn').forEach(btn => {
+    btn.classList.remove('bg-green-700', 'text-white');
+    btn.classList.add('border-2', 'border-green-700', 'text-green-700');
+  });
+
+  const activeBtn = document.querySelector(`[data-tipo="${type}"]`);
+  activeBtn.classList.add('bg-green-700', 'text-white');
+  activeBtn.classList.remove('border-2', 'border-green-700', 'text-green-700');
+
+  // Filter pets
+  if (type === 'todos') {
+    renderGallery(allPets);
+  } else {
+    const filtered = allPets.filter(p => p.tipo === type);
+    renderGallery(filtered);
+  }
+}
+
+// Filter button events
+document.querySelectorAll('.filtro-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterPets(btn.dataset.tipo);
+  });
+});
+
+// =====================
+// INITIALIZE
+// =====================
+loadPets();
