@@ -7,7 +7,7 @@
     "edad": 5,
     "unidad": "months",
     "personalidad": "Playful, affectionate and very energetic. Loves to run and play with kids.",
-    "imagen": "src/assets/perro1.png"
+    "imagen": "/mascotas/perro1.png"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "edad": 4,
     "unidad": "months",
     "personalidad": "Calm, loyal and very attached to his family. Perfect for apartment living.",
-    "imagen": "src/assets/perro2.png"
+    "imagen": "/mascotas/perro2.png"
   },
   {
     "id": 3,
@@ -27,7 +27,7 @@
     "edad": 1,
     "unidad": "years",
     "personalidad": "Curious, cheerful and sociable. Gets along well with other animals and people.",
-    "imagen": "src/assets/perro3.png"
+    "imagen": "/mascotas/perro3.png"
   },
   {
     "id": 4,
@@ -37,7 +37,7 @@
     "edad": 1,
     "unidad": "years",
     "personalidad": "Adventurous, intelligent and very obedient. Loves exploring the outdoors.",
-    "imagen": "src/assets/perro4.png"
+    "imagen": "/mascotas/perro4.png"
   },
   {
     "id": 5,
@@ -47,7 +47,7 @@
     "edad": 8,
     "unidad": "months",
     "personalidad": "Elegant, independent and curious. Enjoys quiet spaces and peaceful moments.",
-    "imagen": "src/assets/gato1.png"
+    "imagen": "/mascotas/gato1.png"
   },
   {
     "id": 6,
@@ -57,7 +57,7 @@
     "edad": 2,
     "unidad": "years",
     "personalidad": "Calm, loving and very homey. Adores cuddles and long naps.",
-    "imagen": "src/assets/gato2.png"
+    "imagen": "/mascotas/gato2.png"
   },
   {
     "id": 7,
@@ -67,7 +67,7 @@
     "edad": 3,
     "unidad": "months",
     "personalidad": "Sociable, playful and very smart. Behaves almost like a dog.",
-    "imagen": "src/assets/gato3.png"
+    "imagen": "/mascotas/gato3.png"
   },
   {
     "id": 8,
@@ -77,6 +77,6 @@
     "edad": 6,
     "unidad": "months",
     "personalidad": "Active, curious and very vocal. Loves to climb and explore every corner.",
-    "imagen": "src/assets/gato4.png"
+    "imagen": "/mascotas/gato4.png"
   }
 ]
