@@ -1,5 +1,6 @@
 // 1. Al inicio del documento, importar fetchProducts y fetchCategories desde functions.js
 import { fetchProducts, fetchCategories } from './functions.js';
+import { saveVote } from './firebase.js';
 
 // ==========================================
 // DEFINICIÓN DE FUNCIONES
@@ -33,6 +34,10 @@ const renderCategories = async () => {
             // Caso TRUE:
             // Almacenar en container la referencia al elemento con id "categories"
             const container = document.getElementById('categories');
+            if (!container) {
+                console.warn('Elemento #categories no encontrado en el DOM.');
+                return;
+            }
 
             // Reemplazar el contenido anterior con la opción predeterminada deshabilitada
             container.innerHTML = `<option selected disabled>Seleccione una categoría</option>`;
@@ -75,8 +80,10 @@ const renderProducts = () => {
         .then(result => {
             if (result.success) {
                 const container = document.getElementById('products-container');
-                container.innerHTML = '';
-
+                if (!container) {
+                    console.warn('Elemento #products-container no encontrado en el DOM.');
+                    return;
+                }
                 const products = result.body.slice(0, 6);
 
                 products.forEach(product => {
@@ -117,6 +124,35 @@ const renderProducts = () => {
         });
 };
 
+const enableForm = () => {
+    const form = document.getElementById('form_voting');
+    if (!form) {
+        console.warn('Elemento #form_voting no encontrado en el DOM.');
+        return;
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const selectCategory = document.getElementById('select_product').value;
+        saveVote(selectCategory).then((result) => {
+            alert(result.message);
+        }).catch((error) => {
+            alert('Error al guardar el voto: ' + (error.message || error));
+        });
+
+        const productID = selectProduct.value;
+
+        saveVote(productID)
+            .then((result) => {
+                alert(result.message);
+            })
+            .catch((error) => {
+                alert('Error al guardar el voto: ' + (error.message || error));
+            });
+    });
+};
+
 // ==========================================
 // FUNCIÓN DE AUTOEJECUCIÓN (IIFE)
 // ==========================================
@@ -124,5 +160,6 @@ const renderProducts = () => {
     showToast();
     showVideo();
     renderCategories(); // <-- Llame a la función renderCategories aquí
-    renderProducts(); 
+    renderProducts();
+    enableForm();
 })();
