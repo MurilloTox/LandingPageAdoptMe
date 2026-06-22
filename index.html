@@ -86,9 +86,9 @@
     </section>
 
     <!-- How It Works Section -->
-    <section id="adopt" class="py-16 bg-green-50">
+    <section id="how-it-works" class="py-16 bg-green-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Adoption Request Form</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-green-800">How It Works</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Step 1 -->
                 <div class="bg-white p-6 rounded-xl shadow-md text-center">
@@ -116,6 +116,74 @@
                     <h3 class="text-xl font-bold mb-2 text-green-800">3. Redeem Rewards</h3>
                     <p class="text-gray-600">Exchange your coins for gift cards, donations, or other rewards.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adoption Request Form -->
+    <section id="adopt" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-green-800">Adoption Request Form</h2>
+            <p class="text-center text-gray-500 mb-10">Fill out the form below and we'll get back to you to start the adoption process.</p>
+
+            <form id="adoption-form" class="max-w-2xl mx-auto bg-green-50 p-8 rounded-xl shadow-md space-y-5">
+                <div>
+                    <label for="adopt-name" class="block text-sm font-semibold text-green-800 mb-1">Full Name</label>
+                    <input type="text" id="adopt-name" name="name" required
+                        class="w-full px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-600"
+                        placeholder="Your full name">
+                </div>
+
+                <div>
+                    <label for="adopt-email" class="block text-sm font-semibold text-green-800 mb-1">Email</label>
+                    <input type="email" id="adopt-email" name="email" required
+                        class="w-full px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-600"
+                        placeholder="you@example.com">
+                </div>
+
+                <div>
+                    <label for="adopt-phone" class="block text-sm font-semibold text-green-800 mb-1">Phone Number</label>
+                    <input type="tel" id="adopt-phone" name="phone" required
+                        class="w-full px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-600"
+                        placeholder="(555) 555-5555">
+                </div>
+
+                <div>
+                    <label for="adopt-pet" class="block text-sm font-semibold text-green-800 mb-1">Pet You'd Like to Adopt</label>
+                    <select id="adopt-pet" name="pet"
+                        class="w-full px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-600">
+                        <option value="">-- Select a pet --</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="adopt-message" class="block text-sm font-semibold text-green-800 mb-1">Message</label>
+                    <textarea id="adopt-message" name="message" rows="4"
+                        class="w-full px-4 py-2 rounded-lg border border-green-200 focus:outline-none focus:ring-2 focus:ring-green-600"
+                        placeholder="Tell us a bit about yourself and why you'd like to adopt this pet..."></textarea>
+                </div>
+
+                <button type="submit" id="adopt-submit-btn"
+                    class="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-3 rounded-full transition duration-300">
+                    Submit Request
+                </button>
+
+                <p id="adopt-error" class="hidden text-center text-red-600 font-semibold pt-2">
+                    Something went wrong sending your request. Please try again.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Submitted Request Result -->
+    <section id="request-result" class="py-16 bg-green-50 hidden">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-green-800">Your Request</h2>
+            <p class="text-center text-gray-500 mb-10">Here's a confirmation of what was submitted.</p>
+
+            <div id="request-result-card"
+                class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-3">
+                <!-- Filled dynamically by main.js -->
             </div>
         </div>
     </section>
